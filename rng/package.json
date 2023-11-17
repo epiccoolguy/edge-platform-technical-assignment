@@ -1,5 +1,5 @@
 {
-  "name": "edge-platform-technical-assignment",
+  "name": "rng",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,11 +8,5 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "typescript": "^5.2.2"
-  },
-  "workspaces": [
-    "rng"
-  ]
+  "license": "ISC"
 }
