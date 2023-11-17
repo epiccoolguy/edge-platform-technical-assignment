@@ -1,10 +1,6 @@
 import { getCountryName, isMobileNumber } from "./dictionary";
 
-type EnhancedNumber = {
-  phoneNumber: string;
-  country: string;
-  mobile: boolean;
-};
+import { EnhancedNumber } from "types";
 
 // todo: send this off to store
 
