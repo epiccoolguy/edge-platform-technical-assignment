@@ -15,7 +15,8 @@
   },
   "workspaces": [
     "rng",
-    "metadata"
+    "metadata",
+    "types"
   ],
   "devDependencies": {
     "@babel/preset-env": "^7.23.3",
