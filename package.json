@@ -16,5 +16,8 @@
   "workspaces": [
     "rng",
     "metadata"
-  ]
+  ],
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
 }
