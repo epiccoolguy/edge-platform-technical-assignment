@@ -1,16 +1,6 @@
-import crypto from "crypto";
-
 import * as RabbitMQ from "./events/rabbitmq";
-
-const lowerBound = 10000000000;
-const upperBound = 999999999999;
-
-// todo: send this off to metadata
-const random = crypto.randomInt(lowerBound, upperBound);
-
-console.log(Number.isSafeInteger(lowerBound));
-console.log(Number.isSafeInteger(upperBound));
-console.log(random);
+import { generatePhoneNumber } from "./core/generate";
+import { publish as publishGeneratedPhoneNumber } from "./events/publishers/phone-number-generated";
 
 async function init() {
   await RabbitMQ.init();
@@ -26,4 +16,9 @@ process.on("SIGTERM", deinit);
 
 (async function main() {
   await init();
+
+  setInterval(() => {
+    const phoneNumber = generatePhoneNumber();
+    publishGeneratedPhoneNumber(phoneNumber);
+  }, 1000);
 })();
