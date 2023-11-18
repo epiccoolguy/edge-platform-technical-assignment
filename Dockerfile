@@ -6,11 +6,13 @@
 
 ARG NODE_VERSION=21.2.0
 
-FROM node:${NODE_VERSION}-alpine
+FROM node:${NODE_VERSION} as build
+
+# The directory of the microservice to build in
+ARG SERVICE
 
 # Use production node environment by default.
 ENV NODE_ENV production
-
 
 WORKDIR /usr/src/app
 
@@ -19,6 +21,30 @@ WORKDIR /usr/src/app
 # Leverage a bind mounts to package.json and package-lock.json to avoid having to copy them into
 # into this layer.
 RUN --mount=type=bind,source=package.json,target=package.json \
+    --mount=type=bind,source=${SERVICE}/package.json,target=${SERVICE}/package.json \
+    --mount=type=bind,source=package-lock.json,target=package-lock.json \
+    --mount=type=cache,target=/root/.npm \
+    npm ci --omit=''
+
+# Copy the rest of the source files into the image.
+COPY package*.json .
+COPY types types
+COPY ${SERVICE} ${SERVICE}
+
+WORKDIR /usr/src/app/${SERVICE}
+
+RUN npm run build
+
+FROM node:${NODE_VERSION}-alpine
+
+ARG SERVICE=metadata
+
+ENV NODE_ENV production
+
+WORKDIR /usr/src/app
+
+RUN --mount=type=bind,source=package.json,target=package.json \
+    --mount=type=bind,source=${SERVICE}/package.json,target=${SERVICE}/package.json \
     --mount=type=bind,source=package-lock.json,target=package-lock.json \
     --mount=type=cache,target=/root/.npm \
     npm ci --omit=dev
@@ -26,11 +52,10 @@ RUN --mount=type=bind,source=package.json,target=package.json \
 # Run the application as a non-root user.
 USER node
 
-# Copy the rest of the source files into the image.
-COPY . .
+COPY --from=build /usr/src/app/${SERVICE}/build build
 
 # Expose the port that the application listens on.
 EXPOSE 80
 
 # Run the application.
-CMD node main.js
+CMD node build/main.js
