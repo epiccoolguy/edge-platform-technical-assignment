@@ -8,14 +8,34 @@
 # database or a cache. For examples, see the Awesome Compose repository:
 # https://github.com/docker/awesome-compose
 services:
-  server:
+  rng:
     build:
       context: .
+      args:
+        - SERVICE=rng
+    environment:
+      NODE_ENV: production
+  metadata:
+    build:
+      context: .
+      args:
+        - SERVICE=metadata
+    environment:
+      NODE_ENV: production
+  store:
+    build:
+      context: .
+      args:
+        - SERVICE=store
+    environment:
+      NODE_ENV: production
+      MONGO_URI: mongodb://mongo:27017/phonenumbers
+  mongo:
+    image: mongo:7
     environment:
       NODE_ENV: production
     ports:
-      - 80:80
-
+      - 27017:27017
 # The commented out section below is an example of how to define a PostgreSQL
 # database that your application can use. `depends_on` tells Docker Compose to
 # start the database before your application. The `db-data` volume persists the
@@ -48,4 +68,3 @@ services:
 # secrets:
 #   db-password:
 #     file: db/password.txt
-
