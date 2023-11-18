@@ -20,5 +20,8 @@
     "jest": "^29.7.0",
     "types": "^1.0.0",
     "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@cloudamqp/amqp-client": "^3.1.1"
   }
 }
