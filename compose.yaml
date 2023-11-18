@@ -15,6 +15,10 @@ services:
         - SERVICE=rng
     environment:
       NODE_ENV: production
+      RABBITMQ_URI: amqp://rabbitmq
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
   metadata:
     build:
       context: .
@@ -22,6 +26,10 @@ services:
         - SERVICE=metadata
     environment:
       NODE_ENV: production
+      RABBITMQ_URI: amqp://rabbitmq
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
   store:
     build:
       context: .
@@ -29,7 +37,13 @@ services:
         - SERVICE=store
     environment:
       NODE_ENV: production
+      RABBITMQ_URI: amqp://rabbitmq
       MONGO_URI: mongodb://mongo:27017/phonenumbers
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      mongo:
+        condition: service_started
   mongo:
     image: mongo:7
     environment:
@@ -41,3 +55,8 @@ services:
     ports:
       - 5672:5672
       - 15672:15672
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "check_port_connectivity"]
+      interval: 10s
+      timeout: 10s
+      retries: 10
