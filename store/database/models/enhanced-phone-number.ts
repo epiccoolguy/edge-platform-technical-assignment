@@ -8,5 +8,7 @@ const schema = new Mongoose.Schema<EnhancedNumber>({
   mobile: Boolean,
 });
 
-export const EnhancedPhoneNumber: Mongoose.Model<EnhancedNumber> =
-  new Mongoose.Model("EnhancedPhoneNumber", schema);
+export const EnhancedPhoneNumber = Mongoose.model(
+  "EnhancedPhoneNumber",
+  schema
+);
