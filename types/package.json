@@ -1,13 +1,25 @@
 {
   "name": "types",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "build/types.js",
   "types": "types.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --coverage",
+    "build": "tsc --build",
+    "clean": "tsc --build --clean"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "@babel/preset-env": "^7.23.3",
+    "@babel/preset-typescript": "^7.23.3",
+    "@jest/globals": "^29.7.0",
+    "@types/node": "^20.9.1",
+    "babel-jest": "^29.7.0",
+    "jest": "^29.7.0",
+    "types": "^1.0.0",
+    "typescript": "^5.2.2"
+  }
 }

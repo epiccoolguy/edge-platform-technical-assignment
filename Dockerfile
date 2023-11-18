@@ -31,6 +31,10 @@ COPY package*.json .
 COPY types types
 COPY ${SERVICE} ${SERVICE}
 
+WORKDIR /usr/src/app/types
+
+RUN npm run build
+
 WORKDIR /usr/src/app/${SERVICE}
 
 RUN npm run build
@@ -53,6 +57,7 @@ RUN --mount=type=bind,source=package.json,target=package.json \
 USER node
 
 COPY --from=build /usr/src/app/${SERVICE}/build build
+COPY --from=build /usr/src/app/types /usr/src/app/node_modules/types
 
 # Expose the port that the application listens on.
 EXPOSE 80
