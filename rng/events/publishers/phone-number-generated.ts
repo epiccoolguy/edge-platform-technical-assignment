@@ -25,7 +25,7 @@ export async function publish(phoneNumber: string): Promise<void> {
     phoneNumber,
   };
 
-  await queue.publish(JSON.stringify(body));
+  await queue.publish(JSON.stringify(body), { deliveryMode: 2 });
 
   console.info(`published message with generated phone number ${phoneNumber}`);
 }

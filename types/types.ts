@@ -25,3 +25,7 @@ export const MESSAGE_NAMES = MESSAGES.reduce((res, cur, index) => {
 export type PhoneNumberGeneratedBody = {
   phoneNumber: string;
 };
+
+export type PhoneNumberEnhancedBody = {
+  enhancedPhoneNumber: EnhancedNumber;
+};
