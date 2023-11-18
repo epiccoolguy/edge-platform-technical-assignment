@@ -1,5 +1,3 @@
-// todo: receive EnhancedNumber and put into mongo
-
 import * as RabbitMQ from "./events/rabbitmq";
 import * as Mongo from "./database/mongo";
 
