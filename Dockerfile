@@ -56,11 +56,11 @@ RUN --mount=type=bind,source=package.json,target=package.json \
 # Run the application as a non-root user.
 USER node
 
-COPY --from=build /usr/src/app/${SERVICE}/build build
+COPY --from=build /usr/src/app/${SERVICE}/dist dist
 COPY --from=build /usr/src/app/types /usr/src/app/node_modules/types
 
 # Expose the port that the application listens on.
 EXPOSE 80
 
 # Run the application.
-CMD node build/main.js
+CMD node dist/main.js

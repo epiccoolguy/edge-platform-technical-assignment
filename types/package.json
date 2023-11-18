@@ -1,7 +1,7 @@
 {
   "name": "types",
   "version": "1.0.0",
-  "main": "build/types.js",
+  "main": "dist/types.js",
   "types": "types.ts",
   "scripts": {
     "test": "jest --coverage",

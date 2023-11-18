@@ -1,7 +1,7 @@
 {
   "name": "store",
   "version": "1.0.0",
-  "main": "main.js",
+  "main": "dist/main.js",
   "scripts": {
     "test": "jest --coverage",
     "build": "tsc --build",

@@ -2,7 +2,7 @@
   "name": "rng",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
+  "main": "dist/main.js",
   "scripts": {
     "test": "jest --coverage",
     "build": "tsc --build",
