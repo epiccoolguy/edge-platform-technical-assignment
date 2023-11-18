@@ -29,3 +29,7 @@ export type PhoneNumberGeneratedBody = {
 export type PhoneNumberEnhancedBody = {
   enhancedPhoneNumber: EnhancedNumber;
 };
+
+export type PhoneNumberStoredBody = {
+  storedPhoneNumber: EnhancedNumber;
+};
