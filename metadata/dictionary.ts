@@ -1,9 +1,18 @@
 import CountryCodeToName from "./country-codes.json";
 import CountryCodeToMobilePrefixes from "./mobile-prefixes.json";
 
-const countryCodes = Object.keys(CountryCodeToName);
+export type CountryCode = keyof typeof CountryCodeToName;
+export type CountryCodesWithMobilePrefixes = Extract<
+  CountryCode,
+  keyof typeof CountryCodeToMobilePrefixes
+>;
 
-function findFirstSubstring(str: string, subs: string[]): string | undefined {
+const countryCodes = Object.keys(CountryCodeToName) as CountryCode[];
+
+function findFirstSubstring<S extends string = string>(
+  str: string,
+  subs: S[]
+): S | undefined {
   for (const sub of subs) {
     if (str.startsWith(sub)) {
       return sub;
@@ -11,12 +20,25 @@ function findFirstSubstring(str: string, subs: string[]): string | undefined {
   }
 }
 
-function getCountryCode(phoneNumber: string): string {
-  return findFirstSubstring(phoneNumber, countryCodes) || "";
+function getCountryCode(phoneNumber: string): CountryCode {
+  const countryCode = findFirstSubstring<CountryCode>(
+    phoneNumber,
+    countryCodes
+  );
+
+  if (countryCode === undefined) {
+    throw new Error("Undefined Country Code");
+  }
+
+  return countryCode;
 }
 
 export function getCountryName(phoneNumber: string): string {
   const countryCode = getCountryCode(phoneNumber);
+
+  if (countryCode === undefined) {
+    throw new Error("Undefined Country Code");
+  }
 
   const countryName: string | undefined = CountryCodeToName[countryCode];
 
@@ -26,12 +48,14 @@ export function getCountryName(phoneNumber: string): string {
 export function isMobileNumber(phoneNumber: string): boolean {
   const countryCode = getCountryCode(phoneNumber);
 
-  const mobilePrefixes: string[] | undefined =
-    CountryCodeToMobilePrefixes[countryCode];
-
-  if (!mobilePrefixes) {
+  if (
+    !CountryCodeToMobilePrefixes[countryCode as CountryCodesWithMobilePrefixes]
+  ) {
     return false;
   }
+
+  const mobilePrefixes: string[] =
+    CountryCodeToMobilePrefixes[countryCode as CountryCodesWithMobilePrefixes];
 
   const remainingPhoneNumber = phoneNumber.slice(countryCode.length);
 

@@ -3,7 +3,11 @@ import { randomInt } from "crypto";
 
 import CountryCodeToName from "./country-codes.json";
 import CountryCodeToMobilePrefixes from "./mobile-prefixes.json";
-import { getCountryName, isMobileNumber } from "./dictionary";
+import {
+  getCountryName,
+  isMobileNumber,
+  CountryCodesWithMobilePrefixes,
+} from "./dictionary";
 
 const upperBound = 999999999999;
 
@@ -23,7 +27,9 @@ describe("getCountryName", () => {
 describe("isMobileNumber", () => {
   for (const [countryCode, countryName] of Object.entries(CountryCodeToName)) {
     const mobilePrefixes: string[] | undefined =
-      CountryCodeToMobilePrefixes[countryCode];
+      CountryCodeToMobilePrefixes[
+        countryCode as CountryCodesWithMobilePrefixes
+      ];
 
     if (mobilePrefixes) {
       for (const mobilePrefix of mobilePrefixes) {
