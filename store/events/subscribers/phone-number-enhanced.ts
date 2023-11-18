@@ -27,8 +27,8 @@ async function subscribe(message: AMQPMessage): Promise<void> {
 }
 
 export async function init(connection: AMQPBaseClient): Promise<void> {
-  channel = await connection.channel(MESSAGE_IDS.PHONE_NUMBER_GENERATED);
-  queue = await channel.queue(MESSAGE_NAMES.PHONE_NUMBER_GENERATED);
+  channel = await connection.channel(MESSAGE_IDS.PHONE_NUMBER_ENHANCED);
+  queue = await channel.queue(MESSAGE_NAMES.PHONE_NUMBER_ENHANCED);
 
   await queue.subscribe({ noAck: false }, subscribe);
 }
