@@ -1,5 +1,5 @@
-import CountryCodeToName from "./country-codes.json";
-import CountryCodeToMobilePrefixes from "./mobile-prefixes.json";
+import CountryCodeToName from "../static/country-codes.json";
+import CountryCodeToMobilePrefixes from "../static/mobile-prefixes.json";
 
 export type CountryCode = keyof typeof CountryCodeToName;
 export type CountryCodesWithMobilePrefixes = Extract<

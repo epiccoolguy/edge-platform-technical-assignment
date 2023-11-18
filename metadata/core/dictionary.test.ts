@@ -1,8 +1,8 @@
 import { describe, expect, test } from "@jest/globals";
 import { randomInt } from "crypto";
 
-import CountryCodeToName from "./country-codes.json";
-import CountryCodeToMobilePrefixes from "./mobile-prefixes.json";
+import CountryCodeToName from "../static/country-codes.json";
+import CountryCodeToMobilePrefixes from "../static/mobile-prefixes.json";
 import {
   getCountryName,
   isMobileNumber,
