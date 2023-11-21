@@ -68,3 +68,5 @@ More tests should be added to ensure correctness and cover edge cases.
 For the message bus functionality, the initialisation and publish/subscribe functions should be abstracted and packaged to make it easier to test and reuse.
 
 Likewise I would rather package the database connection so it is easier to mock for database handler tests in addition to being able to further abstract mongodb to allow for easier migration away from MongoDB if ever necessary.
+
+A logger (and metrics) package should be implemented to better control output formatting and redirect metrics and logs to an observability platform.
