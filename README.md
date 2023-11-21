@@ -70,3 +70,10 @@ For the message bus functionality, the initialisation and publish/subscribe func
 Likewise I would rather package the database connection so it is easier to mock for database handler tests in addition to being able to further abstract mongodb to allow for easier migration away from MongoDB if ever necessary.
 
 A logger (and metrics) package should be implemented to better control output formatting and redirect metrics and logs to an observability platform.
+
+## Potential ways to deploy
+
+1. Set up a context for a remote Docker host running in a VM and deploy with docker-compose.
+2. Use Kubernetes with an Infrastructure-as-Code tool such as Terraform to manage the lifecycle of the application.
+
+In any case, CI/CD pipelines should be implemented to test and deploy the application.
